@@ -23,7 +23,7 @@ AppDataSource.initialize()
   .catch((err) => {
     console.log("Database connection error:", err);
   });
-console.log("router:", router);
+
 app.use("/api", router);
 
 export default app;
