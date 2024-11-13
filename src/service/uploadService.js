@@ -18,7 +18,6 @@ const createUpload = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const { uploaderAddress, tokenAddress, dataItems } = data;
     const uploadRepository = (0, typeorm_1.getRepository)(Upload_1.Upload);
     const upload = new Upload_1.Upload();
-    upload.uploaderAddress = uploaderAddress;
     upload.tokenAddress = tokenAddress;
     // Map data items to entities
     upload.dataItems = dataItems.map((item) => {

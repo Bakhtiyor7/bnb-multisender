@@ -13,9 +13,6 @@ export class Upload {
   id: number;
 
   @Column()
-  uploaderAddress: string;
-
-  @Column()
   tokenAddress: string;
 
   @CreateDateColumn()

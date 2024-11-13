@@ -4,12 +4,7 @@ import { AppDataSource } from "./src/config/typeormConfig";
 import router from "./src/routes/router";
 const app = express();
 
-app.use(
-  cors({
-    credentials: true,
-    origin: true,
-  }),
-);
+app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 app.use(
   express.urlencoded({

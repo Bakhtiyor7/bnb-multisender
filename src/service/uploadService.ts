@@ -12,7 +12,6 @@ export const createUpload = async (data: {
 
   const uploadRepository = getRepository(Upload);
   const upload = new Upload();
-  upload.uploaderAddress = uploaderAddress;
   upload.tokenAddress = tokenAddress;
 
   // Map data items to entities

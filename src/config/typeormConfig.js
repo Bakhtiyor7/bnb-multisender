@@ -29,7 +29,6 @@ const Upload_1 = require("../entity/Upload");
 const DataItem_1 = require("../entity/DataItem");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config({ path: `.env.${process.env.NODE_ENV || "development"}` });
-console.log("node env:", process.env.NODE_ENV);
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: process.env.DB_HOST,

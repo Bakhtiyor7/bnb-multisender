@@ -7,6 +7,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const uploadController_1 = __importDefault(require("../controller/uploadController"));
 const router = express_1.default.Router();
-router.post("/", uploadController_1.default.uploadData); // Endpoint to upload data
-router.get("/:id", uploadController_1.default.getUploadById); // Endpoint to fetch data by ID
+router.post("/uploads", uploadController_1.default.uploadData); // Endpoint to upload data
+router.get("/uploads/:id", uploadController_1.default.getUploadById); // Endpoint to fetch data by ID
 exports.default = router;
