@@ -12,5 +12,5 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities: [Upload, DataItem],
-  synchronize: true,
+  synchronize: process.env.NODE_ENV === "development",
 });

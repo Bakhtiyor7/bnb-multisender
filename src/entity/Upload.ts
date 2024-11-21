@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   OneToMany,
+  UpdateDateColumn,
 } from "typeorm";
 import { DataItem } from "./DataItem";
 
@@ -14,6 +15,15 @@ export class Upload {
 
   @Column()
   tokenAddress: string;
+
+  @Column({ default: "pending" })
+  status: "pending" | "completed" | "failed"; // Enum-like for status tracking
+
+  @Column({ nullable: true })
+  transactionHash: string; // Store blockchain transaction hash
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -2,22 +2,22 @@
 import { getRepository } from "typeorm";
 import { Upload } from "../entity/Upload";
 import { DataItem } from "../entity/DataItem";
+import { AppDataSource } from "../config/typeormConfig";
 
 export const createUpload = async (data: {
-  uploaderAddress: string;
   tokenAddress: string;
-  dataItems: { to: string; amount: string }[];
+  dataItems: { address: string; amount: string }[];
 }) => {
-  const { uploaderAddress, tokenAddress, dataItems } = data;
+  const { tokenAddress, dataItems } = data;
 
-  const uploadRepository = getRepository(Upload);
+  const uploadRepository = AppDataSource.getRepository(Upload);
   const upload = new Upload();
   upload.tokenAddress = tokenAddress;
 
   // Map data items to entities
   upload.dataItems = dataItems.map((item) => {
     const dataItem = new DataItem();
-    dataItem.recipientAddress = item.to;
+    dataItem.recipientAddress = item.address;
     dataItem.amount = item.amount;
     return dataItem;
   });
@@ -29,7 +29,8 @@ export const createUpload = async (data: {
 };
 
 export const getUploadByIdService = async (id: number) => {
-  const uploadRepository = getRepository(Upload);
+  const uploadRepository = AppDataSource.getRepository(Upload);
+
   const upload = await uploadRepository.findOne({
     where: { id },
     relations: ["dataItems"],
@@ -37,3 +38,23 @@ export const getUploadByIdService = async (id: number) => {
 
   return upload;
 };
+
+export async function updateUploadStatus(
+  id: number,
+  status: "pending" | "completed" | "failed",
+  transactionHash?: string
+): Promise<void> {
+  const uploadRepository = AppDataSource.getRepository(Upload);
+  const upload = await uploadRepository.findOne({ where: { id } });
+
+  if (!upload) {
+    throw new Error("Upload not found");
+  }
+
+  upload.status = status;
+  if (transactionHash) {
+    upload.transactionHash = transactionHash;
+  }
+
+  await uploadRepository.save(upload);
+}

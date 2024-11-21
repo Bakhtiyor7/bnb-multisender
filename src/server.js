@@ -22,20 +22,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppDataSource = void 0;
-const typeorm_1 = require("typeorm");
-const Upload_1 = require("../entity/Upload");
-const DataItem_1 = require("../entity/DataItem");
+const app_1 = __importDefault(require("../app"));
 const dotenv = __importStar(require("dotenv"));
+const http_1 = __importDefault(require("http"));
 dotenv.config({ path: `.env.${process.env.NODE_ENV || "development"}` });
-exports.AppDataSource = new typeorm_1.DataSource({
-    type: "mysql",
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    entities: [Upload_1.Upload, DataItem_1.DataItem],
-    synchronize: process.env.NODE_ENV === "development",
+// const app: Express = express();
+const port = process.env.PORT || 3001;
+const httpServer = http_1.default.createServer(app_1.default);
+httpServer.listen(port, () => {
+    console.log(`Listening on port ${port}`);
 });

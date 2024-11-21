@@ -13,10 +13,19 @@ const uploadService_1 = require("../service/uploadService");
 let uploadController = {};
 uploadController.uploadData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const upload = yield (0, uploadService_1.createUpload)(req.body);
-        return res
-            .status(201)
-            .json({ message: "Data uploaded successfully", id: upload.id });
+        const { tokenAddress, dataItems } = req.body;
+        // Input validation
+        if (!tokenAddress || !Array.isArray(dataItems)) {
+            return res.status(400).json({ error: "Invalid input data" });
+        }
+        const upload = yield (0, uploadService_1.createUpload)({
+            tokenAddress,
+            dataItems,
+        });
+        return res.status(201).json({
+            message: "Data uploaded successfully",
+            id: upload.id,
+        });
     }
     catch (error) {
         console.error("Error saving data:", error);
@@ -34,6 +43,22 @@ uploadController.getUploadById = (req, res) => __awaiter(void 0, void 0, void 0,
     catch (error) {
         console.error("Error retrieving data:", error);
         return res.status(500).json({ error: "Error retrieving data" });
+    }
+});
+uploadController.updateStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { status, transactionHash } = req.body;
+        const uploadId = Number(req.params.id);
+        // Validate the status value
+        if (!["pending", "completed", "failed"].includes(status)) {
+            return res.status(400).json({ error: "Invalid status value" });
+        }
+        yield (0, uploadService_1.updateUploadStatus)(uploadId, status, transactionHash);
+        return res.json({ message: "Upload status updated successfully" });
+    }
+    catch (error) {
+        console.error("Error updating upload status:", error);
+        return res.status(500).json({ error: "Error updating upload status" });
     }
 });
 exports.default = uploadController;

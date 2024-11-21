@@ -10,19 +10,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUploadByIdService = exports.createUpload = void 0;
-// src/services/uploadService.ts
-const typeorm_1 = require("typeorm");
+exports.updateUploadStatus = updateUploadStatus;
 const Upload_1 = require("../entity/Upload");
 const DataItem_1 = require("../entity/DataItem");
+const typeormConfig_1 = require("../config/typeormConfig");
 const createUpload = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const { uploaderAddress, tokenAddress, dataItems } = data;
-    const uploadRepository = (0, typeorm_1.getRepository)(Upload_1.Upload);
+    const { tokenAddress, dataItems } = data;
+    const uploadRepository = typeormConfig_1.AppDataSource.getRepository(Upload_1.Upload);
     const upload = new Upload_1.Upload();
     upload.tokenAddress = tokenAddress;
     // Map data items to entities
     upload.dataItems = dataItems.map((item) => {
         const dataItem = new DataItem_1.DataItem();
-        dataItem.recipientAddress = item.to;
+        dataItem.recipientAddress = item.address;
         dataItem.amount = item.amount;
         return dataItem;
     });
@@ -32,7 +32,7 @@ const createUpload = (data) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.createUpload = createUpload;
 const getUploadByIdService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const uploadRepository = (0, typeorm_1.getRepository)(Upload_1.Upload);
+    const uploadRepository = typeormConfig_1.AppDataSource.getRepository(Upload_1.Upload);
     const upload = yield uploadRepository.findOne({
         where: { id },
         relations: ["dataItems"],
@@ -40,3 +40,17 @@ const getUploadByIdService = (id) => __awaiter(void 0, void 0, void 0, function*
     return upload;
 });
 exports.getUploadByIdService = getUploadByIdService;
+function updateUploadStatus(id, status, transactionHash) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const uploadRepository = typeormConfig_1.AppDataSource.getRepository(Upload_1.Upload);
+        const upload = yield uploadRepository.findOne({ where: { id } });
+        if (!upload) {
+            throw new Error("Upload not found");
+        }
+        upload.status = status;
+        if (transactionHash) {
+            upload.transactionHash = transactionHash;
+        }
+        yield uploadRepository.save(upload);
+    });
+}

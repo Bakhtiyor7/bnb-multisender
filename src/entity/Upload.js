@@ -24,6 +24,18 @@ __decorate([
     __metadata("design:type", String)
 ], Upload.prototype, "tokenAddress", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: "pending" }),
+    __metadata("design:type", String)
+], Upload.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Upload.prototype, "transactionHash", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], Upload.prototype, "updatedAt", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Upload.prototype, "createdAt", void 0);

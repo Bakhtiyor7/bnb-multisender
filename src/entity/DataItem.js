@@ -24,9 +24,13 @@ __decorate([
     __metadata("design:type", String)
 ], DataItem.prototype, "recipientAddress", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)("decimal", { precision: 65, scale: 0 }),
     __metadata("design:type", String)
 ], DataItem.prototype, "amount", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], DataItem.prototype, "isDistributed", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Upload_1.Upload, (upload) => upload.dataItems),
     __metadata("design:type", Upload_1.Upload)

@@ -9,8 +9,11 @@ export class DataItem {
   @Column()
   recipientAddress: string;
 
-  @Column()
+  @Column("decimal", { precision: 65, scale: 0 })
   amount: string;
+
+  @Column({ default: false })
+  isDistributed: boolean; //
 
   @ManyToOne(() => Upload, (upload) => upload.dataItems)
   upload: Upload;
