@@ -9,7 +9,7 @@ export const createUpload = async (data: {
 }) => {
   const { dataItems } = data;
 
-  console.log('dataItems', dataItems);
+  console.log("dataItems service", dataItems);
 
   const uploadRepository = AppDataSource.getRepository(Upload);
   const dataItemRepository = AppDataSource.getRepository(DataItem);
@@ -24,7 +24,7 @@ export const createUpload = async (data: {
   const dataItemEntities = dataItems.map((item) => {
     const dataItem = new DataItem();
     dataItem.recipientAddress = item.address;
-    dataItem.amount = item.amount;
+    dataItem.amount = item.amount.toString();
     dataItem.tokenAddress = item.tokenAddress; // Use tokenAddress from dataItem
     dataItem.upload = upload;
     return dataItem;
@@ -52,9 +52,9 @@ export const getUploadByIdService = async (id: number) => {
 
 // Update the status of an upload
 export async function updateUploadStatus(
-    id: number,
-    status: "pending" | "completed" | "failed",
-    transactionHash?: string
+  id: number,
+  status: "pending" | "completed" | "failed",
+  transactionHash?: string
 ): Promise<void> {
   const uploadRepository = AppDataSource.getRepository(Upload);
 

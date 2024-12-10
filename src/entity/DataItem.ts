@@ -6,14 +6,13 @@ export class DataItem {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({default: false})
+  @Column({ default: false })
   recipientAddress: string;
 
-
-  @Column("decimal", { precision: 65, scale: 0 })
+  @Column("decimal", { precision: 18, scale: 8 })
   amount: string;
 
-  @Column({default: false})
+  @Column({ default: false })
   tokenAddress: string;
 
   @Column({ default: false })

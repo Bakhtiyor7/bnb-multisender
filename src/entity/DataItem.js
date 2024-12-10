@@ -24,7 +24,7 @@ __decorate([
     __metadata("design:type", String)
 ], DataItem.prototype, "recipientAddress", void 0);
 __decorate([
-    (0, typeorm_1.Column)("decimal", { precision: 65, scale: 0 }),
+    (0, typeorm_1.Column)("decimal", { precision: 18, scale: 8 }),
     __metadata("design:type", String)
 ], DataItem.prototype, "amount", void 0);
 __decorate([

@@ -17,7 +17,7 @@ const typeormConfig_1 = require("../config/typeormConfig");
 // Create an upload record with associated data items
 const createUpload = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const { dataItems } = data;
-    console.log('dataItems', dataItems);
+    console.log("dataItems service", dataItems);
     const uploadRepository = typeormConfig_1.AppDataSource.getRepository(Upload_1.Upload);
     const dataItemRepository = typeormConfig_1.AppDataSource.getRepository(DataItem_1.DataItem);
     // Create a new upload entity
@@ -28,7 +28,7 @@ const createUpload = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const dataItemEntities = dataItems.map((item) => {
         const dataItem = new DataItem_1.DataItem();
         dataItem.recipientAddress = item.address;
-        dataItem.amount = item.amount;
+        dataItem.amount = item.amount.toString();
         dataItem.tokenAddress = item.tokenAddress; // Use tokenAddress from dataItem
         dataItem.upload = upload;
         return dataItem;
