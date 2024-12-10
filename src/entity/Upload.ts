@@ -13,9 +13,6 @@ export class Upload {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  tokenAddress: string;
-
   @Column({ default: "pending" })
   status: "pending" | "completed" | "failed"; // Enum-like for status tracking
 

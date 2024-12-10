@@ -13,15 +13,14 @@ const uploadService_1 = require("../service/uploadService");
 let uploadController = {};
 uploadController.uploadData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { tokenAddress, dataItems } = req.body;
+        console.log('payload:::', req.body);
+        const { dataItems } = req.body;
+        console.log('dataItems', dataItems);
         // Input validation
-        if (!tokenAddress || !Array.isArray(dataItems)) {
-            return res.status(400).json({ error: "Invalid input data" });
-        }
-        const upload = yield (0, uploadService_1.createUpload)({
-            tokenAddress,
-            dataItems,
-        });
+        // if ( !Array.isArray(dataItems)) {
+        //   return res.status(400).json({ error: "Invalid input data" });
+        // }
+        const upload = yield (0, uploadService_1.createUpload)({ dataItems });
         return res.status(201).json({
             message: "Data uploaded successfully",
             id: upload.id,

@@ -20,10 +20,6 @@ __decorate([
     __metadata("design:type", Number)
 ], Upload.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Upload.prototype, "tokenAddress", void 0);
-__decorate([
     (0, typeorm_1.Column)({ default: "pending" }),
     __metadata("design:type", String)
 ], Upload.prototype, "status", void 0);

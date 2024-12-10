@@ -6,11 +6,15 @@ export class DataItem {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({default: false})
   recipientAddress: string;
+
 
   @Column("decimal", { precision: 65, scale: 0 })
   amount: string;
+
+  @Column({default: false})
+  tokenAddress: string;
 
   @Column({ default: false })
   isDistributed: boolean; //

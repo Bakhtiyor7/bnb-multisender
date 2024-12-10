@@ -13,17 +13,18 @@ uploadController.uploadData = async (
   res: Response
 ): Promise<Response | void> => {
   try {
-    const { tokenAddress, dataItems } = req.body;
+    console.log('payload:::', req.body)
+    const { dataItems } = req.body;
+
+    console.log('dataItems', dataItems);
 
     // Input validation
-    if (!tokenAddress || !Array.isArray(dataItems)) {
-      return res.status(400).json({ error: "Invalid input data" });
-    }
+    // if ( !Array.isArray(dataItems)) {
+    //   return res.status(400).json({ error: "Invalid input data" });
+    // }
 
-    const upload = await createUpload({
-      tokenAddress,
-      dataItems,
-    });
+    const upload = await createUpload({dataItems}
+    );
 
     return res.status(201).json({
       message: "Data uploaded successfully",
