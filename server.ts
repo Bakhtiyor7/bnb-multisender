@@ -1,6 +1,6 @@
-import app from "../app";
 import * as dotenv from "dotenv";
 import http from "http";
+import app from "./app";
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV || "development"}` });
 // const app: Express = express();
